@@ -40,13 +40,15 @@
 
 ## 3. 실제 서브에이전트 생성 규칙
 
-멀티에이전트 또는 위임 기능이 지원되는 환경에서는 역할을 설명하거나 계획만 쓰고 멈추지 않는다. 저장소·참고자료·Git 상태를 확인한 직후, 사용자에게 다시 묻지 말고 생성 도구를 실제 호출해 다음 세 역할을 만든다.
+멀티에이전트 또는 위임 기능이 지원되는 환경에서는 역할을 설명하거나 계획만 쓰고 멈추지 않는다. 저장소·참고자료·Git 상태를 확인한 직후, 사용자에게 다시 묻지 말고 생성 도구를 실제 호출한다.
 
-1. `data_steward` — `.agents/roles/data_steward.md`
-2. `mobility_demand_analyst` — `.agents/roles/mobility_demand_analyst.md`
-3. `transit_access_analyst` — `.agents/roles/transit_access_analyst.md`
+1. Wave 1에서 `data_steward`를 `.agents/roles/data_steward.md`에 따라 실제 생성한다.
+2. `data_steward`가 `data/metadata/analysis_contract.json`과 `outputs/intermediate/data_audit/readiness.json`을 만들고 메인이 검수한다.
+3. Wave 2에서 `mobility_demand_analyst`와 `transit_access_analyst`를 각각의 역할 파일에 따라 실제 생성해 병렬 실행한다.
+4. 준비 상태가 제한되거나 `blocked`여도 두 분석 역할은 실제 생성하되, 허용된 축의 결과 또는 코드·테스트·차단 근거만 만들고 지원되지 않는 실증 계산은 하지 않는다.
+5. 메인이 결과를 통합한 뒤 `qa_reviewer`를 `.agents/roles/qa_reviewer.md`에 따라 실제 생성한다.
 
-초기 세 역할의 결과를 메인이 통합한 뒤 `qa_reviewer`를 `.agents/roles/qa_reviewer.md`에 따라 실제 생성한다. 동시 실행 수가 부족하면 웨이브를 나누되 역할을 생략하지 않는다.
+동시 실행 수가 부족하면 웨이브를 더 나누되 역할을 생략하지 않는다.
 
 각 생성 요청에는 반드시 다음 항목을 포함한다.
 
@@ -60,7 +62,34 @@
 
 멀티에이전트 기능이 없으면 에이전트를 생성했다고 가장하지 않는다. 메인이 네 역할을 순차 수행하고, 미생성 사유와 대체 수행 내역을 `reports/agent_runs/`에 기록한다.
 
-## 4. 분석 원칙
+## 4. 데이터 계약과 역할 경계
+
+`data/metadata/analysis_contract.json`은 각 입력에 대해 최소한 다음 필드를 가진다.
+
+- `dataset_id`, `status`, `path`, `sha256`
+- `row_grain`, `primary_key`, `required_columns`
+- `time_zone`, `crs`, `temporal_coverage`, `spatial_coverage`
+- `allowed_uses`, `block_reason`
+
+`outputs/intermediate/data_audit/readiness.json`은 `mode`, `demand_ready`, `transit_ready`, `join_ready`, `unavailable_outputs`, `evidence`를 가진다. `mode`는 `full`, `demand_only`, `transit_only`, `blocked` 중 하나다.
+
+역할 경계는 다음과 같다.
+
+- `mobility_demand_analyst`는 이동 집중도와 승하차 간극에 기반한 **수요 후보**만 만든다. 첫차·환승 기반 서비스 공백을 판정하거나 이를 실제 미충족 수요라고 부르지 않는다.
+- `transit_access_analyst`는 정류장별 첫차·환승·보행·서비스 캘린더를 적용해 **계획 시각 기준 서비스 공백 후보**를 판정한다. 입력이 불완전하면 `no_gap`이 아니라 `unknown`으로 둔다.
+- 메인은 두 결과를 `candidate_id`로 결합한다. 설문·직접 검증 근거가 없으면 최종 결과도 실제 미충족 수요라고 단정하지 않는다.
+
+모든 Python 검증 명령은 저장소 루트에서 실행 가능해야 하며, 기본 명령은 다음과 같다.
+
+- `python -m pytest tests/data -q`
+- `python -m src.data.validate_contract --contract data/metadata/analysis_contract.json`
+- `python -m pytest tests/demand -q`
+- `python -m pytest tests/access -q`
+- `python -m pytest -q`
+
+사용 환경에서 `python` 실행 파일 이름이 다르면 같은 환경의 실행 파일로 치환하고 README에 실제 명령을 기록한다.
+
+## 5. 분석 원칙
 
 - 새벽 이동자를 새벽 근로자로 단정하지 않는다.
 - KT 기반 생활이동과 티머니 기반 승하차 자료의 추정·집계 성격을 명시한다.
@@ -74,7 +103,7 @@
 - 탄소 변화는 교통수단 전환율별 민감도 시나리오로 제시하고 특정 전환율을 사실로 단정하지 않는다.
 - 실제 자료가 없으면 결과를 만들어내지 않는다. 합성·예시 자료는 명확히 표시하고 최종 실증 결과와 분리한다.
 
-## 5. 필수 결과물
+## 6. 필수 결과물
 
 가능한 데이터 범위 안에서 다음 결과를 만든다.
 
@@ -88,7 +117,16 @@
 
 세밀 자료나 설문을 확보하지 못한 경우, 공개 자료 기반 후보 탐색과 정밀 검증이 필요한 항목을 분리해서 보고한다.
 
-## 6. 자율 작업과 승인 경계
+완료 모드는 다음과 같이 제한한다.
+
+- `full`: 수요·교통망·결합 준비가 모두 통과한 경우에만 통합 시나리오와 우선순위를 만든다.
+- `demand_only`: OD와 수요 후보까지만 만든다. 서비스 공백, 노선 우선순위, 수혜 인원과 차량시간 결과는 `unsupported`다.
+- `transit_only`: 시간표 기반 접근성 기술 점검까지만 만든다. 수요 가중 효과와 우선순위는 `unsupported`다.
+- `blocked`: 출처·접근 증거·차단 사유·대체재, 수집·스키마 검증 코드와 테스트만 만든다. 실증 분석 완료로 보고하지 않는다.
+
+각 모드에서 `reports/analysis_coverage.md`에 요청 결과별 `produced` 또는 `unsupported`, 누락 의존성, 영향과 다음 확보 단계를 기록한다. 최종 상태는 `COMPLETE_FULL`, `COMPLETE_LIMITED`, `BLOCKED_INPUT` 중 하나다.
+
+## 7. 자율 작업과 승인 경계
 
 프로젝트 루트 내부의 일반적인 읽기, 파일 생성·수정, 공개 무인증 데이터의 합리적 크기 다운로드, 데이터 분석, 안전한 테스트·정적 검사, 결과 생성, `git add`와 일반 `git commit`은 사용자 승인 없이 수행한다. 기존 사용자 변경을 보존하고, 관련 변경만 작고 응집력 있는 단위로 커밋한다.
 
@@ -107,7 +145,7 @@
 
 이 저장소에서 Git 소유권 경고가 발생하면 명령별 `-c safe.directory=<프로젝트 절대경로>`만 사용한다. 프로젝트 밖 전역 Git 설정은 승인 없이 수정하지 않는다.
 
-## 7. Git과 무시 파일
+## 8. Git과 무시 파일
 
 `.gitignore`는 대용량 원자료, 캐시, 임시 파일, 비밀정보, 로컬 QA 로그만 제외한다. 다음 핵심 자료는 반드시 추적 대상으로 유지한다.
 
@@ -120,7 +158,7 @@
 
 `*.md`, `*.txt`, `*.docx` 전체를 무시하는 규칙을 추가하지 않는다. 무시된 파일을 `git add -f`로 강제 추가하지 않는다. 커밋 전에는 `git status --short`, `git status --ignored`, `git diff --check`, 필요한 파일에 대한 `git check-ignore -v`를 확인한다.
 
-## 8. 검수 게이트
+## 9. 검수 게이트
 
 1. 범위: 산출물이 데이터 분석이며 기획서·제안서가 아닌가?
 2. 출처: 제공기관, URL, 접근일, 이용조건, 시간·공간 단위, 스키마가 기록되었는가?

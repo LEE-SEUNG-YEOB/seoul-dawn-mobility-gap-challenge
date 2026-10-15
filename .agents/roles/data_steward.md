@@ -35,11 +35,20 @@
 
 ## 산출물
 
-- 출처 URL, 제공기관, 접근일, 이용 조건, 갱신주기, 시간·공간 단위를 담은 매니페스트
-- 데이터 사전과 조인 키 정의
+- `data/metadata/analysis_contract.json`: 각 입력별 `dataset_id`, `status`, `path`, `sha256`, `row_grain`, `primary_key`, `required_columns`, `time_zone`, `crs`, `temporal_coverage`, `spatial_coverage`, `allowed_uses`, `block_reason`
+- `outputs/intermediate/data_audit/readiness.json`: `mode`, `demand_ready`, `transit_ready`, `join_ready`, `unavailable_outputs`, `evidence`. `mode`는 `full|demand_only|transit_only|blocked`
+- 출처 URL, 제공기관, 접근일, 이용 조건, 갱신주기, 시간·공간 단위를 담은 매니페스트와 데이터 사전
+- 조인 키와 값 표준화 규칙
 - 다운로드·검증·정제 코드 및 테스트
 - 결측, 중복, 억제, 범위, 단위, 좌표계, 인코딩 점검 결과
 - 접근 제한·대용량·라이선스 위험과 대체재 목록
+
+## 검증 명령
+
+- `python -m pytest tests/data -q`
+- `python -m src.data.validate_contract --contract data/metadata/analysis_contract.json`
+
+필요한 모듈과 테스트가 없다면 전용 경로 안에 구현한다. 공통 의존성이 필요하면 설치를 임의 진행하지 말고 메인에 변경안을 제시한다.
 
 ## 필수 주의사항
 
@@ -48,7 +57,8 @@
 - 인증, 결제, 계정 생성, 약관 동의, 불명확한 라이선스는 즉시 메인에 승인 필요 상태로 보고한다.
 - 원본은 변경하지 않고 체크섬과 다운로드 시점을 기록한다.
 - 큰 원자료는 Git에 넣지 않는다.
+- 다운로드 전에 예상 크기를 기록한다. 예상 총량이 1GB를 넘거나 크기를 확인할 수 없으면 메인에 승인 필요 상태로 보고한다.
 
 ## 완료 조건
 
-모든 분석 입력의 출처와 변환 계보가 추적 가능하고, 표본 또는 허용된 범위에서 수집·스키마 검증이 재실행되며, 차단된 자료와 대체 방안이 명확해야 한다.
+초기 목록의 모든 분석 입력에 계약 행이 있고, 두 검증 명령이 종료 코드 0으로 통과하며, 준비 모드와 증거가 기록되어야 한다. 이후 입력이 추가되면 메인이 Wave 2 전에 재감사를 요청한다. 차단 자료는 `status`, `block_reason`, 대체 방안과 영향을 반드시 남긴다.
