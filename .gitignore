@@ -1,0 +1,77 @@
+# Secrets and local credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials*.json
+token*.json
+
+# Python and test caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+
+# Notebook and editor state
+.ipynb_checkpoints/
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Raw, external, interim, and cached data are reproducible or too large for Git
+data/raw/**
+data/external/**
+data/interim/**
+data/cache/**
+!data/raw/README.md
+!data/raw/.gitkeep
+!data/external/README.md
+!data/external/.gitkeep
+
+# Temporary analysis artifacts and local QA logs
+tmp/
+temp/
+scratch/
+outputs/tmp/
+outputs/cache/
+reports/qa-local/
+*.tmp
+*.bak
+*.log
+
+# Large local databases and downloaded archives
+*.sqlite
+*.sqlite3
+*.db
+*.zip
+*.7z
+*.rar
+*.tar
+*.tar.gz
+
+# Core instructions and source context must stay trackable.
+# Do not add global ignore rules for *.md, *.txt, or *.docx.
+!AGENTS.md
+!README.md
+!.agents/
+!.agents/roles/
+!.agents/roles/*.md
+!prompts/
+!prompts/*.md
+!docs/
+!docs/context/
+!docs/context/주제.txt
+!docs/context/새벽_이동공백_분석_데이터_확보처_하이퍼링크_수정본.docx
+!docs/context/PROJECT_CONTEXT.md
