@@ -71,7 +71,17 @@
 - `time_zone`, `crs`, `temporal_coverage`, `spatial_coverage`
 - `allowed_uses`, `block_reason`
 
-`outputs/intermediate/data_audit/readiness.json`은 `mode`, `demand_ready`, `transit_ready`, `join_ready`, `unavailable_outputs`, `evidence`를 가진다. `mode`는 `full`, `demand_only`, `transit_only`, `blocked` 중 하나다.
+`outputs/intermediate/data_audit/readiness.json`은 `mode`, `demand_ready`, `transit_ready`, `join_ready`, `unavailable_outputs`, `evidence`를 가진다. `mode`는 `full`, `demand_only`, `transit_only`, `separate_only`, `blocked` 중 하나다.
+
+모드와 불리언은 다음 불변식을 지킨다.
+
+- `full`: `demand_ready=true`, `transit_ready=true`, `join_ready=true`
+- `demand_only`: `true`, `false`, `false`
+- `transit_only`: `false`, `true`, `false`
+- `separate_only`: `true`, `true`, `false`
+- `blocked`: `false`, `false`, `false`
+
+`join_ready=true`인데 두 준비 플래그 중 하나라도 `false`인 상태는 유효하지 않다.
 
 역할 경계는 다음과 같다.
 
@@ -107,7 +117,7 @@
 
 가능한 데이터 범위 안에서 다음 결과를 만든다.
 
-- 03:00~06:00 주요 OD와 미충족 이동 후보
+- 03:00~06:00 주요 OD·수요 후보와 계획 시각 기준 서비스 공백 후보
 - 첫차 조정 우선 노선·정류장 후보표
 - 현행 대비 15분·30분 조정과 단축노선 시나리오 비교
 - 조정 전후 도착 가능 지역 지도
@@ -122,6 +132,7 @@
 - `full`: 수요·교통망·결합 준비가 모두 통과한 경우에만 통합 시나리오와 우선순위를 만든다.
 - `demand_only`: OD와 수요 후보까지만 만든다. 서비스 공백, 노선 우선순위, 수혜 인원과 차량시간 결과는 `unsupported`다.
 - `transit_only`: 시간표 기반 접근성 기술 점검까지만 만든다. 수요 가중 효과와 우선순위는 `unsupported`다.
+- `separate_only`: 수요 후보와 시간표 기반 접근성 기술 점검을 각각 만들되 결합 서비스 공백, 수요 가중 효과와 우선순위는 `unsupported`다.
 - `blocked`: 출처·접근 증거·차단 사유·대체재, 수집·스키마 검증 코드와 테스트만 만든다. 실증 분석 완료로 보고하지 않는다.
 
 각 모드에서 `reports/analysis_coverage.md`에 요청 결과별 `produced` 또는 `unsupported`, 누락 의존성, 영향과 다음 확보 단계를 기록한다. 최종 상태는 `COMPLETE_FULL`, `COMPLETE_LIMITED`, `BLOCKED_INPUT` 중 하나다.

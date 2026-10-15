@@ -28,7 +28,9 @@
 - 교통수단 전환율별 탄소 변화 민감도 계산 입력·식·결과
 - 주요 가정을 외부 설정으로 분리한 재현 코드와 테스트
 
-고정 산출물 `outputs/intermediate/access/service_gap_candidates.csv`에는 최소한 `candidate_id`, `scenario`, `service_day_type`, `arrival_deadline`, `current_reachable`, `scenario_reachable`, `arrival_time`, `beneficiary_estimate`, `vehicle_hours`, `access_gap_status`, `assumption_set_id`가 있어야 한다. `access_gap_status`는 `gap|no_gap|unknown` 중 하나다.
+`transit_ready=true`이면 고정 산출물 `outputs/intermediate/access/transit_coverage_audit.csv`를 만든다. 최소 필드는 `audit_id`, `origin_id`, `destination_id_or_stop_id`, `service_day_type`, `scenario`, `arrival_deadline`, `reachable`, `arrival_time`, `access_gap_status`, `assumption_set_id`, `source_dataset_ids`다. `access_gap_status`는 `gap|no_gap|unknown` 중 하나다.
+
+`join_ready=true`일 때만 `outputs/intermediate/access/service_gap_candidates.csv`를 추가로 만든다. 최소 필드는 `candidate_id`, `scenario`, `service_day_type`, `arrival_deadline`, `current_reachable`, `scenario_reachable`, `arrival_time`, `beneficiary_estimate`, `vehicle_hours`, `access_gap_status`, `assumption_set_id`다. 수요 입력이 없을 때 `candidate_id`를 임의로 만들지 않는다.
 
 역할 전용 가정은 `src/access/config/`에 둔다. 최소한 보행속도, 접근 반경, 환승시간, 대기시간, 도착 마감시각, 정차·회차시간, 서비스 요일, 탄소 배출계수와 출처를 외부화한다.
 

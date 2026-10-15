@@ -8,7 +8,8 @@
 
 - 입력부터 최종 표·그림까지 데이터 계보가 이어지는가?
 - `analysis_contract.json`과 `readiness.json`의 필수 필드와 근거가 완전한가?
-- `full|demand_only|transit_only|blocked` 모드와 실제 산출 범위가 일치하는가?
+- `full|demand_only|transit_only|separate_only|blocked` 모드와 실제 산출 범위가 일치하는가?
+- 준비 불리언과 모드가 정의된 불변식을 지키며, `join_ready=true`일 때 수요·교통망 준비가 모두 참인가?
 - 결측, 중복, 억제, 단위, 시간대와 날짜 경계 처리가 일관적인가?
 - 좌표계와 공간 조인, 정류장 접근권 계산이 타당한가?
 - 학습·검증 누수, 미래 정보 사용, 잘못된 집계가 없는가?

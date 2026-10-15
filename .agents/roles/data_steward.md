@@ -36,7 +36,7 @@
 ## 산출물
 
 - `data/metadata/analysis_contract.json`: 각 입력별 `dataset_id`, `status`, `path`, `sha256`, `row_grain`, `primary_key`, `required_columns`, `time_zone`, `crs`, `temporal_coverage`, `spatial_coverage`, `allowed_uses`, `block_reason`
-- `outputs/intermediate/data_audit/readiness.json`: `mode`, `demand_ready`, `transit_ready`, `join_ready`, `unavailable_outputs`, `evidence`. `mode`는 `full|demand_only|transit_only|blocked`
+- `outputs/intermediate/data_audit/readiness.json`: `mode`, `demand_ready`, `transit_ready`, `join_ready`, `unavailable_outputs`, `evidence`. `mode`는 `full|demand_only|transit_only|separate_only|blocked`
 - 출처 URL, 제공기관, 접근일, 이용 조건, 갱신주기, 시간·공간 단위를 담은 매니페스트와 데이터 사전
 - 조인 키와 값 표준화 규칙
 - 다운로드·검증·정제 코드 및 테스트
@@ -49,6 +49,8 @@
 - `python -m src.data.validate_contract --contract data/metadata/analysis_contract.json`
 
 필요한 모듈과 테스트가 없다면 전용 경로 안에 구현한다. 공통 의존성이 필요하면 설치를 임의 진행하지 말고 메인에 변경안을 제시한다.
+
+준비 모드는 `(demand_ready, transit_ready, join_ready)` 순서로 `full=(true,true,true)`, `demand_only=(true,false,false)`, `transit_only=(false,true,false)`, `separate_only=(true,true,false)`, `blocked=(false,false,false)`만 허용한다. `join_ready=true`인데 다른 준비 플래그가 `false`인 계약은 검증 실패로 처리한다.
 
 ## 필수 주의사항
 
