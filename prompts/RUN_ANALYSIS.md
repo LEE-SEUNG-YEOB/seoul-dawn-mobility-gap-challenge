@@ -22,7 +22,7 @@
 6. `data_steward`가 `data/metadata/analysis_contract.json`과 `outputs/intermediate/data_audit/readiness.json`을 만들고 검증 명령을 통과하면 메인이 계약과 준비 상태를 승인하라.
 7. Wave 2에서 `mobility_demand_analyst`와 `transit_access_analyst`를 실제 생성해 서로 다른 파일에서 병렬 작업하게 하라. 준비 상태가 제한되거나 `blocked`여도 두 역할은 생성하되, 허용되지 않은 실증 계산은 금지하고 코드·테스트·차단 근거만 만들게 하라.
 8. 각 생성 메시지에 역할 파일 전문 또는 그 파일을 반드시 읽으라는 지시, 승인된 계약·준비 상태, 담당 질문, 입력, 수정 가능 경로, 고정 산출물, 검증 명령과 완료 조건을 포함하라.
-9. 결과를 기다린 뒤 메인이 `candidate_id`로 검수·통합하라.
+9. 결과를 기다린 뒤 메인이 검수하라. `join_ready=true`일 때만 수요 후보와 `service_gap_candidates.csv`를 `candidate_id`로 결합하고, 다른 모드에서는 축별 산출물을 독립 검수하며 결합하지 마라.
 10. 통합 후 `qa_reviewer`를 실제 생성해 재현성, 수치, 지도, 가정, 준비 모드와 산출 범위의 일관성을 독립 검증하게 하라. QA 지적을 수정한 뒤 재검증하라.
 
 멀티에이전트 기능이 없으면 생성했다고 가장하지 말고, 네 역할을 메인이 순차 수행한 사실과 이유를 `reports/agent_runs/`에 남겨라.
