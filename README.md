@@ -49,3 +49,20 @@
 분석 코드와 공유 결과는 Git으로 추적한다. `data/`, `docs/context/`, `.agents/`, `prompts/`와 `AGENTS.md`, 대용량 원자료, 캐시, 임시 파일, 인증정보 및 로컬 QA 로그는 `.gitignore`에서 제외한다.
 
 일반 커밋은 분석 진행 중 자유롭게 만들 수 있다. 강제 푸시, 기록 재작성, 프로젝트 밖 접근과 위험 작업은 사전 승인이 필요하다.
+
+## 재현 가능한 분석 실행
+
+현재 검증 상태는 `separate_only`다. 수요 결과와 제한된 공급 목록은 각각 재현되며, 수요·공급 결합 결과는 만들지 않는다. 원자료는 `data/` 아래에서 읽기 전용으로 사용한다.
+
+Windows PowerShell에서 프로젝트 환경을 사용한 실행 순서는 다음과 같다.
+
+```powershell
+.\.venv\Scripts\python.exe -m src.data.validate_contract --contract data/metadata/analysis_contract.json --verify-hashes
+.\.venv\Scripts\python.exe -m src.demand.run
+.\.venv\Scripts\python.exe -m src.access.build_supply_audit
+.\.venv\Scripts\python.exe -m src.reporting.build_report
+.\.venv\Scripts\python.exe -m pytest -q
+.\.venv\Scripts\python.exe -m src.reporting.provenance --write
+```
+
+최종 표·지도·그림은 `outputs/final/`, 분석 범위와 인계 내용은 `reports/analysis_coverage.md`와 `reports/analysis_handoff.md`에 있다. OA-15334 미확보 정류소–노선은 0이나 `no_gap`이 아니라 `unknown`이다.

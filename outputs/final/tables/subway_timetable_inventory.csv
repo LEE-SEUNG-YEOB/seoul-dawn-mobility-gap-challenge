@@ -1,0 +1,17 @@
+﻿service_day_type,direction,file_count,timetable_row_count,rows_departing_03_to_before_06,unique_train_number_count,unique_departure_station_count,unique_line_name_count,snapshot_date,search_datetime,historical_service_verified,actual_operation_verified,source_dataset_ids
+공휴일,내선,1,0,0,0,0,0,2026-10-16,2026-09-15T04:30:00,false,false,data-go-15143847
+공휴일,상행,1,0,0,0,0,0,2026-10-16,2026-09-15T04:30:00,false,false,data-go-15143847
+공휴일,외선,1,0,0,0,0,0,2026-10-16,2026-09-15T04:30:00,false,false,data-go-15143847
+공휴일,하행,1,0,0,0,0,0,2026-10-16,2026-09-15T04:30:00,false,false,data-go-15143847
+상시,내선,1,0,0,0,0,0,2026-10-16,2026-09-15T04:30:00,false,false,data-go-15143847
+상시,상행,1,0,0,0,0,0,2026-10-16,2026-09-15T04:30:00,false,false,data-go-15143847
+상시,외선,1,0,0,0,0,0,2026-10-16,2026-09-15T04:30:00,false,false,data-go-15143847
+상시,하행,1,0,0,0,0,0,2026-10-16,2026-09-15T04:30:00,false,false,data-go-15143847
+주말,내선,10,9692,142,422,8,1,2026-10-16,2026-09-15T04:30:00,false,false,data-go-15143847
+주말,상행,53,52593,902,1500,58,9,2026-10-16,2026-09-15T04:30:00,false,false,data-go-15143847
+주말,외선,10,9561,137,420,7,1,2026-10-16,2026-09-15T04:30:00,false,false,data-go-15143847
+주말,하행,54,53460,861,1514,53,9,2026-10-16,2026-09-15T04:30:00,false,false,data-go-15143847
+평일,내선,12,11657,140,485,8,1,2026-10-16,2026-09-15T04:30:00,false,false,data-go-15143847
+평일,상행,74,73461,1352,2083,65,9,2026-10-16,2026-09-15T04:30:00,false,false,data-go-15143847
+평일,외선,12,11706,134,491,7,1,2026-10-16,2026-09-15T04:30:00,false,false,data-go-15143847
+평일,하행,75,74590,1204,2109,60,9,2026-10-16,2026-09-15T04:30:00,false,false,data-go-15143847

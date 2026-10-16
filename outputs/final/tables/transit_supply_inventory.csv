@@ -1,0 +1,4 @@
+﻿inventory_id,mode,snapshot_date,record_count,unique_route_count,unique_stop_count,unique_route_stop_pair_count,exact_duplicate_rows,scope,source_dataset_ids
+bus_route_stop_20260902,bus,2026-09-02,41688,718,12848,41023,0,route-stop inventory; September-wide validity not verified,OA-1095
+bus_station_master_20261016,bus,2026-10-16,11497,,11497,,0,station master inventory; historical September validity not verified,OA-21231
+bus_route_node_master_20261016,bus,2026-10-16,88729,1353,24164,87742,0,route-node master inventory; historical September validity not verified,OA-21233
