@@ -30,15 +30,8 @@ venv/
 Thumbs.db
 Desktop.ini
 
-# Raw, external, interim, and cached data are reproducible or too large for Git
-data/raw/**
-data/external/**
-data/interim/**
-data/cache/**
-!data/raw/README.md
-!data/raw/.gitkeep
-!data/external/README.md
-!data/external/.gitkeep
+# All data files are local-only and must not be tracked by Git
+/data/
 
 # Temporary analysis artifacts and local QA logs
 tmp/
