@@ -586,7 +586,5 @@ def main() -> None:
     result = run(args.root, args.memory_limit, args.threads)
     print(json.dumps(result, ensure_ascii=False, indent=2))
 
-
 if __name__ == "__main__":
     main()
-

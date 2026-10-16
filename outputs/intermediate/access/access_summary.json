@@ -1,0 +1,73 @@
+{
+  "status": "COMPLETE_LIMITED",
+  "readiness_mode": "separate_only",
+  "scope": "technical inventory and acquired planned timetable cases only",
+  "OA-15334": {
+    "completed_requests": 1999,
+    "request_universe": 44735,
+    "completed_request_percent": 4.468536939756343,
+    "valid_nonzero_ars_route_pairs": 1947,
+    "valid_pair_percent_of_request_universe": 4.352296859282441,
+    "sampling": "nonprobability",
+    "unacquired_pairs": "unknown",
+    "response_rows": 2014,
+    "invalid_xml_responses": 14,
+    "valid_first_time_items_including_zero_ars": 1963,
+    "invalid_nonempty_first_time_items": 0,
+    "valid_nonzero_ars_route_item_rows": 1962,
+    "pairs_with_multiple_valid_items": 15,
+    "duplicate_pair_excess_item_rows": 15
+  },
+  "dawn_valid_pairs_03_to_before_06": 1041,
+  "bus_inventory_quality": {
+    "OA-1095": {
+      "rows": 41688,
+      "exact_duplicate_rows": 0
+    },
+    "OA-21231": {
+      "rows": 11497
+    },
+    "OA-21233": {
+      "rows": 88729
+    }
+  },
+  "subway_inventory_quality": {
+    "rows": 296720,
+    "exact_duplicate_rows_across_queries": 0,
+    "rows_missing_departure_time": 8914,
+    "group_count": 16
+  },
+  "temporal_limit": "OA-1095 is 2026-09-02; OA-21231/OA-21233/OA-15334 and subway retrieval are 2026-10-16. Historical September equivalence is unverified.",
+  "operation_limit": "Planned timetable observations only; actual vehicle/train operation is not verified.",
+  "unsupported": [
+    "service_gap_candidates.csv",
+    "beneficiaries",
+    "demand_weighted_priority",
+    "carbon_effect",
+    "15_vs_30_minute_effect",
+    "short_route_effect",
+    "before_after_reachable_area"
+  ],
+  "lineage": {
+    "transit_coverage_audit.csv": [
+      "OA-15334"
+    ],
+    "first_bus_time_distribution.csv": [
+      "OA-15334"
+    ],
+    "first_bus_coverage_by_route.csv": [
+      "OA-15334"
+    ],
+    "first_bus_coverage_by_stop.csv": [
+      "OA-15334"
+    ],
+    "transit_supply_inventory.csv": [
+      "OA-1095",
+      "OA-21231",
+      "OA-21233"
+    ],
+    "subway_timetable_inventory.csv": [
+      "data-go-15143847"
+    ]
+  }
+}

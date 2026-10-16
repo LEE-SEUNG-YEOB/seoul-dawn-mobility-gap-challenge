@@ -1,0 +1,54 @@
+{
+  "assumption_set_id": "access-technical-inventory-v1",
+  "scope": "inventory_and_observed_timetable_cases_only",
+  "walking": {
+    "speed_m_per_second": null,
+    "access_radius_m": null,
+    "active": false,
+    "source": null,
+    "reason": "No validated walking-network input or project-approved assumption is available."
+  },
+  "transfer": {
+    "minimum_minutes": null,
+    "active": false,
+    "source": null,
+    "reason": "No validated transfer graph or transfer-time input is available."
+  },
+  "waiting": {
+    "minutes": null,
+    "active": false,
+    "source": null,
+    "reason": "No headway model is applied to the partial first-bus sample."
+  },
+  "arrival_deadline": {
+    "local_time": null,
+    "active": false,
+    "source": null,
+    "reason": "No candidate-specific destination deadline is available."
+  },
+  "service_calendar": {
+    "bus_day_types": null,
+    "holiday_adjusted": false,
+    "active": false,
+    "source": null,
+    "reason": "OA-15334 responses do not establish a complete day-type or holiday calendar."
+  },
+  "short_route": {
+    "dwell_seconds": null,
+    "turnaround_minutes": null,
+    "headway_minutes": null,
+    "vehicles": null,
+    "distance_km": null,
+    "active": false,
+    "source": null,
+    "reason": "Short-route inputs are unavailable and join_ready is false."
+  },
+  "carbon": {
+    "emission_factor": null,
+    "unit": null,
+    "mode_shift_rate": null,
+    "active": false,
+    "source": null,
+    "reason": "No approved emission factor or observed mode-shift rate is available."
+  }
+}
