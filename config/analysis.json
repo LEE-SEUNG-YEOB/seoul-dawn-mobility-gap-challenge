@@ -1,0 +1,13 @@
+{
+  "period_start": "2026-09-01",
+  "period_end_inclusive": "2026-09-30",
+  "time_zone": "Asia/Seoul",
+  "departure_hours": [3, 4, 5],
+  "core_geography": "both origin and destination in Seoul; distinguish inbound/outbound supplemental results",
+  "day_type": "calendar Monday-Friday vs Saturday-Sunday; not holiday-adjusted working days",
+  "new_data_collection": false,
+  "join_ready_allowed": false,
+  "missing_service_status": "unknown",
+  "interpretation": "estimated movements and demand candidates; not unique persons or unmet demand",
+  "spatial_mapping": "historical boundary with exact normalized-name crosswalk; splits unknown"
+}

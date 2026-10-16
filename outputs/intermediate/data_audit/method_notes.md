@@ -1,0 +1,23 @@
+# Local input audit and interpretation
+
+All raw/reference inputs are read-only. No data was downloaded and no API was called. `file_audit.json` contains SHA256 and byte size for every input, exact per-file row counts and duplicates for readable tables, column missingness, lexical ranges, and categorical values. Large UTF-8 CSV files are scanned by DuckDB with bounded memory and disk spill. Numeric range/negative checks are separately identified; lexical min/max must not be interpreted as numeric ranges. Approximate distinct column counts are explicitly labelled. Binary documentation/shape sidecars receive fingerprints, not invented tabular row counts. XLSX sheet counts include non-header descriptive rows and are not necessarily analytical observations.
+
+`python -m src.data.audit` resumes completed file audits using size and modification time. `python -m src.data.audit_keys` adds exact mobility business-key checks. Re-run `audit` after `audit_keys` to refresh consolidated outputs. `python -m src.data.validate_contract --contract data/metadata/analysis_contract.json --verify-hashes` reads every input again to verify content fingerprints. A same-size, same-mtime malicious rewrite is not detectable by the fast cache; the full hash validation is the final gate.
+
+## Observed units and codebooks
+
+The purpose/mode XLSX layout files define `cnt` as estimated movement population (DOUBLE with two decimal places), `move_dist` as mean distance in meters and `move_time` as mean duration in minutes. The local mobility manual PDF, page 7, describes population adjustment of aggregated subscribers; page 12 lists adjustment for KT market share, LTE/5G proportion, phone-on coverage, and resident population. Pages 19–22 explain decimal estimates and time bins. These are movements aggregated over cells and dates, not identifiable people or unique monthly persons. Purpose and mode are alternative classifications and must not be added together.
+
+`st_time_cd` is departure time and `fns_time_cd` is arrival time. Two-digit hours and four-digit HHMM codes coexist. Dawn is hourly; peak periods use 20-minute bins. Define the main window as departure 03:00 inclusive through 06:00 exclusive. Do not zero-pad `03` into `0003`, and do not mix departure-window and arrival-window totals. OA-22298 is domestic arrival-based marginal data and is not a replacement for OA-22300 OD.
+
+The codebook defines purpose 1=commuting, 2=school, 3=home, 4=shopping, 5=tourism, 6=hospital, 7=other. Modes 1=air, 2=rail, 3=express bus, 4=metropolitan bus, 5=ordinary bus, 6=subway, 7=walking, 8=vehicle, 9=other. Vehicle does not separately identify private car and taxi. Nationality/group labels are recorded verbatim in per-file categorical counts; never add a presumed total category. No explicit suppression threshold was found in the local manual/layout; it remains unknown, and absent cells are not imputed as zero.
+
+## Spatial and temporal limitations
+
+The XLSX layout labels mobility codes as eight-digit administrative codes, while the PDF says statistical administrative codes. Use actual matching against the bundled ADMI code tables, not prose alone. SGIS `ADM_CD` is a different system and must never be joined by direct equality to mobility `ADMI_CD`. The latest local mobility codebook is August 2026; SGIS boundaries are a different vintage. Split or ambiguous neighborhoods remain unknown. Coordinate reference systems are retained from `.prj` rather than inferred solely from numeric coordinate ranges.
+
+OA-12913 is September monthly totals by hour, so bus weekday/weekend comparisons are unsupported. OA-1095/OA-15067 spreadsheets are September 2 snapshots; October 16 master/time-table snapshots do not establish full historical September validity. OA-15334 covers only 1,999 of 44,735 requested pairs (nonprobability selection); request completion is not the same as usable first-time coverage. Wrapper JSONL audits and XML first-time validity counts are distinct. Zero ARS identifiers are not valid spatial join keys. Missing timetable pairs remain unknown. Full service calendars, transfers and walking inputs are absent, so independent technical supply descriptions are permitted but citywide service-gap inference and demand-weighted effects are unsupported.
+
+## Access and provenance
+
+Local context DOCX and existing source manifests are the source of known URLs. URLs without local evidence are null rather than guessed. Exact license versions and many refresh dates are not independently verified. Raw data redistribution is outside this analysis; only aggregate audit metadata and derived analysis are shared. Missing campus samples and survey/interview data are contract entries with explicit blockers and future collection requirements.

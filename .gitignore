@@ -43,6 +43,10 @@ temp/
 scratch/
 outputs/tmp/
 outputs/cache/
+outputs/intermediate/data_audit/files/
+outputs/intermediate/data_audit/duckdb_temp/
+outputs/intermediate/data_audit/key_temp/
+outputs/intermediate/data_audit/test_tmp/
 reports/qa-local/
 *.tmp
 *.bak
