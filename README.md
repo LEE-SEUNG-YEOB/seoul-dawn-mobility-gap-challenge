@@ -29,7 +29,7 @@
 - 생활이동 OD·목적: `OA-22300`
 - 이동수단: `OA-22657`
 - 버스 시간대별 승하차: `OA-12913`
-- 버스 노선·정류소, 행정경계, 지하철 시간표: 확보 완료
+- 버스 노선·정류소, 행정경계, 지하철 시간표: 로컬 스냅샷 확보. 분석 월 전체의 역사적 유효성과 실제 운행은 미검증
 
 따라서 2026년 9월을 기준으로 새벽 이동수요, 이동목적·수단, 버스 이용량과 대중교통 공급 현황의 기초 분석을 수행할 수 있다.
 
@@ -54,7 +54,14 @@
 
 현재 검증 상태는 `separate_only`다. 수요 결과와 제한된 공급 목록은 각각 재현되며, 수요·공급 결합 결과는 만들지 않는다. 원자료는 `data/` 아래에서 읽기 전용으로 사용한다.
 
-Windows PowerShell에서 프로젝트 환경을 사용한 실행 순서는 다음과 같다.
+검증 환경은 Python 3.13.2다. 새 환경에서는 먼저 프로젝트 전용 환경과 고정 의존성을 설치한다.
+
+```powershell
+py -3.13 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+```
+
+로컬 원자료와 `data/metadata/analysis_contract.json`을 배치한 뒤 실행 순서는 다음과 같다.
 
 ```powershell
 .\.venv\Scripts\python.exe -m src.data.validate_contract --contract data/metadata/analysis_contract.json --verify-hashes

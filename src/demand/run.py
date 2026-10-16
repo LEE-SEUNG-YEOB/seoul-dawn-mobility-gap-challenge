@@ -118,9 +118,9 @@ def _build_mobility_aggregates(con: duckdb.DuckDBPyConnection, root: Path) -> No
         trim(o_admdong_cd) AS origin_id,
         trim(d_admdong_cd) AS destination_id,
         CAST(trim(st_time_cd) AS INTEGER) AS hour,
-        sum(try_cast(cnt AS DOUBLE)) AS demand_value,
+        sum(try_cast(cnt AS DECIMAL(38,2))) AS demand_value,
         count(*) AS source_rows,
-        count(try_cast(cnt AS DOUBLE)) AS nonmissing_cnt_rows
+        count(try_cast(cnt AS DECIMAL(38,2))) AS nonmissing_cnt_rows
     """
     con.execute(
         f"""
@@ -493,8 +493,8 @@ def run(root: Path, memory_limit: str = "4GB", threads: int = 2) -> dict[str, ob
     con.execute("SET preserve_insertion_order=false")
     _build_mobility_aggregates(con, root)
     output_rows = _mobility_outputs(con, out)
-    purpose_total = con.execute("SELECT round(sum(demand_value),2) FROM purpose_core").fetchone()[0]
-    mode_total = con.execute("SELECT round(sum(demand_value),2) FROM mode_core").fetchone()[0]
+    purpose_total = float(con.execute("SELECT round(sum(demand_value),2) FROM purpose_core").fetchone()[0])
+    mode_total = float(con.execute("SELECT round(sum(demand_value),2) FROM mode_core").fetchone()[0])
     grouped_counts = {
         "purpose_dawn": con.execute("SELECT count(*) FROM purpose_dawn").fetchone()[0],
         "purpose_core": con.execute("SELECT count(*) FROM purpose_core").fetchone()[0],

@@ -43,3 +43,9 @@ def test_generated_candidates_exclude_self_od_when_output_exists() -> None:
         assert rows
         assert all(row["origin_id"] != row["destination_id"] for row in rows)
         assert all("weekday plus weekend monthly" in row["selection_rule"] for row in rows)
+
+
+def test_pipeline_uses_exact_decimal_counts() -> None:
+    source = Path("src/demand/run.py").read_text(encoding="utf-8")
+    assert "sum(try_cast(cnt AS DECIMAL(38,2)))" in source
+    assert "sum(try_cast(cnt AS DOUBLE))" not in source

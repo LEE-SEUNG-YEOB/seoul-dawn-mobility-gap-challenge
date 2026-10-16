@@ -1,0 +1,155 @@
+{
+  "status": "complete",
+  "files": [
+    {
+      "path": "outputs/final/figures/acquired_first_bus_distribution.png",
+      "bytes": 45858,
+      "sha256": "0eca7d222121f5d1f45a410cc69be892515783eaa05dd55f941dce0d415b9736"
+    },
+    {
+      "path": "outputs/final/figures/destination_demand_map.png",
+      "bytes": 341472,
+      "sha256": "003c6340d032d1b28fc625b1a046ad9ade09bfde41bf0bbe2eb0376e9bc42ccd"
+    },
+    {
+      "path": "outputs/final/figures/hour_day_type.png",
+      "bytes": 50343,
+      "sha256": "ea514288ff4885d6243b605fcfe2e339921f4aeb1650de778b71dc56828f1747"
+    },
+    {
+      "path": "outputs/final/figures/mode_composition.png",
+      "bytes": 40989,
+      "sha256": "183964073a29840db38c5532a1e57fdff60dfc3c046f7ea78776773992998df4"
+    },
+    {
+      "path": "outputs/final/figures/origin_demand_map.png",
+      "bytes": 354618,
+      "sha256": "0e473456a8176c61112f953d2f699667c0969ad53755851a4b1018f8e72bfa42"
+    },
+    {
+      "path": "outputs/final/figures/purpose_composition.png",
+      "bytes": 39747,
+      "sha256": "94ff5d901878456201fdd3dcd6011f7669118055d617e60a4d82dc6f3320d572"
+    },
+    {
+      "path": "outputs/final/figures/top_bus_stops.png",
+      "bytes": 102322,
+      "sha256": "104aac3c9702cee96443b9aa2bf51f12d5cc3d64d725606280d2fe15a67fcbf5"
+    },
+    {
+      "path": "outputs/final/figures/top_od_candidates.png",
+      "bytes": 108873,
+      "sha256": "a68614607e904dc9f65d5f90985628bbd0c713cbc9e74502d1f63e330a43ec8b"
+    },
+    {
+      "path": "outputs/final/maps/bus_demand_candidates.geojson",
+      "bytes": 31793,
+      "sha256": "40571930236189417be960ed7b667fc5ca271c687736970c086d96934c242ade"
+    },
+    {
+      "path": "outputs/final/maps/dong_demand.geojson",
+      "bytes": 8209666,
+      "sha256": "ba89fe765b0bf4d62afb928be52b3236520c154be7f31167c56b4d477a8bcb75"
+    },
+    {
+      "path": "outputs/final/summary.json",
+      "bytes": 6793,
+      "sha256": "96c4bea60f52a9421682d60f3822f5146a96946ad8b214575dfafa975013d9d8"
+    },
+    {
+      "path": "outputs/final/tables/bus_demand_candidates.csv",
+      "bytes": 26642,
+      "sha256": "15d9c5a5be186d565f37ada80420d6f2ba33f2f9d44b20419f74004a10a6558d"
+    },
+    {
+      "path": "outputs/final/tables/bus_hour_summary.csv",
+      "bytes": 121,
+      "sha256": "318b3b2558cfeaf346e71db5cd4b882c6bfb26658e86eecc5540f5aa4f46662e"
+    },
+    {
+      "path": "outputs/final/tables/demand_candidates.csv",
+      "bytes": 40410,
+      "sha256": "373381e56e9df369e53a494cfd8817d423ab1b96ab41aa35bd899662e2113451"
+    },
+    {
+      "path": "outputs/final/tables/destination_concentration.csv",
+      "bytes": 122609,
+      "sha256": "d8d2f77489a3ece89a55f38c10e7dc68fe9df074c73c5edf235c9f5e162c4f3b"
+    },
+    {
+      "path": "outputs/final/tables/first_bus_time_distribution.csv",
+      "bytes": 815,
+      "sha256": "ad82bbef6f22c401b15229a3c7dda8bbc37c677e2f4caacc6ec36c44bfc77e30"
+    },
+    {
+      "path": "outputs/final/tables/geography_crosswalk_audit.csv",
+      "bytes": 33476,
+      "sha256": "f24ffb568bff7e1c313ed99a3dbae3412a2f6c5bd9d212a69857aefef57eec76"
+    },
+    {
+      "path": "outputs/final/tables/hour_day_type.csv",
+      "bytes": 446,
+      "sha256": "9843a65edd3aa24c0ce27e47ddf3528b439502084c8612d277ce1b8e2db26a0e"
+    },
+    {
+      "path": "outputs/final/tables/intrazonal_summary.csv",
+      "bytes": 516,
+      "sha256": "3498ab7aba826ea348f365237957a87f3767334b7f4510b087a9d0692c3fd014"
+    },
+    {
+      "path": "outputs/final/tables/mode_composition.csv",
+      "bytes": 1152,
+      "sha256": "3157766004b1dd9c7acc0d8c40940aee603e9f872150fdd50861e26503b5a449"
+    },
+    {
+      "path": "outputs/final/tables/origin_concentration.csv",
+      "bytes": 122642,
+      "sha256": "b7a5cd3a0e8c12845f861d3c828523cccafeb175c054070c60524edc22e58aea"
+    },
+    {
+      "path": "outputs/final/tables/purpose_composition.csv",
+      "bytes": 947,
+      "sha256": "ef9f173fd6176bb0db87c58e15ae323856254c635843637a67704525e7c30d01"
+    },
+    {
+      "path": "outputs/final/tables/subway_timetable_inventory.csv",
+      "bytes": 1760,
+      "sha256": "f7c254f3e0e2a017c2509226bb29395a82d31d7367eadeab62c383ddf1d0d7ff"
+    },
+    {
+      "path": "outputs/final/tables/transit_coverage_audit.csv",
+      "bytes": 473342,
+      "sha256": "6d6a737f0e597790fa24ec8f37e915b8000b2b34c057e5e99670072a0e405c22"
+    },
+    {
+      "path": "outputs/final/tables/transit_supply_inventory.csv",
+      "bytes": 583,
+      "sha256": "42e4d93cb3eddff85a9bda79fe2cb396785f0d5ea27dc99edfac7c5f35f07b58"
+    },
+    {
+      "path": "reports/agent_runs/execution.md",
+      "bytes": 2156,
+      "sha256": "7cb7e082e07538a51d64cf4fae2019388ca77bb6c350ef1e3de61e368d806208"
+    },
+    {
+      "path": "reports/analysis_coverage.md",
+      "bytes": 4472,
+      "sha256": "46a7cef91aa016721dc4cf0cedc12d5371a025ebfc78a261847c987c404576da"
+    },
+    {
+      "path": "reports/analysis_handoff.md",
+      "bytes": 5185,
+      "sha256": "84ea04c7e0c903915e05bb2ad1cb731481a7dc430dc4b08c69a933b2dc57e897"
+    },
+    {
+      "path": "reports/assumptions_and_limits.md",
+      "bytes": 3559,
+      "sha256": "ab27a19fa402a4b0dc9f4ce351dfb1f8039404ff779025265792907f3ce555d8"
+    },
+    {
+      "path": "reports/qa_review.md",
+      "bytes": 2467,
+      "sha256": "25f97cb9bf6fb507a754f390307b45fda3dea92d2d4d538c678ef88b0efbd406"
+    }
+  ]
+}
