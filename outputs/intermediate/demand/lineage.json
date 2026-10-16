@@ -1,0 +1,22 @@
+{
+  "sources": {
+    "OA-22300": "30 daily purpose CSVs, September 2026",
+    "OA-22657": "30 daily mode CSVs, September 2026",
+    "OA-12913": "September 2026 route-stop-hour monthly totals",
+    "OA-1095": "September 2, 2026 route-stop snapshot used only for stop coordinates",
+    "mobility_codebook": "ADMI_202608.csv"
+  },
+  "filters": [
+    "etl_ymd 20260901..20260930",
+    "st_time_cd exactly one of 3,03,4,04,5,05",
+    "core OD has both codes in Seoul ADMI_202608"
+  ],
+  "calculations": {
+    "monthly_sum": "sum(cnt) over retained aggregate rows; missing cnt is excluded, never replaced by zero",
+    "daily_average": "weekday monthly subtotal / 22; weekend monthly subtotal / 8",
+    "concentration_share": "dong estimated movement sum / all internal-Seoul dong sum within hour",
+    "candidate_rule": "top 100 distinct-dong internal-Seoul OD-hour cells by OA-22300 weekday plus weekend monthly estimated movement sum; intrazonal cells retained only in intrazonal_summary.csv",
+    "bus_candidate_rule": "top 100 stops by sum of OA-12913 03,04,05 monthly boardings plus alightings"
+  },
+  "non_additivity": "OA-22300 purpose and OA-22657 mode totals are parallel axes; OA-12913 has a different unit and is not differenced."
+}

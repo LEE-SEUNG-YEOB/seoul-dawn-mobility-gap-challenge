@@ -1,0 +1,104 @@
+{
+  "status": "complete_limited",
+  "readiness_mode": "separate_only",
+  "analysis_window": "departure 03:00 inclusive to 06:00 exclusive, Asia/Seoul",
+  "core_geography": "both origin and destination exactly matched to ADMI_202608 Seoul codes",
+  "day_type_days": {
+    "weekday": 22,
+    "weekend": 8
+  },
+  "purpose_axis_internal_total": 18196606.52,
+  "mode_axis_internal_total": 20690930.37,
+  "axis_rule": "Purpose and mode are alternative classifications and are never added or subtracted.",
+  "bus_rule": "OA-12913 monthly boarding/alighting is independently described and never subtracted from mobility counts.",
+  "bus_missing_dawn_cells": 0,
+  "bus_totals": {
+    "boardings_03_05_monthly": 3085981,
+    "alightings_03_05_monthly": 2571832,
+    "coordinate_matched_unique_stops": 12419,
+    "coordinate_unmatched_stops": 113,
+    "coordinate_ambiguous_stops": 0
+  },
+  "grouped_rows": {
+    "purpose_dawn": 1504462,
+    "purpose_core": 705360,
+    "mode_dawn": 1588282,
+    "mode_core": 906278
+  },
+  "artifacts": {
+    "boundary_flow_summary.csv": {
+      "rows": 24,
+      "sha256": "c6883dc7785d0a60a8a89371cd644bc93a8e2ebdbb15b38ffe0307d20daef8ce"
+    },
+    "bus_demand_candidates.csv": {
+      "rows": 100,
+      "sha256": "15d9c5a5be186d565f37ada80420d6f2ba33f2f9d44b20419f74004a10a6558d"
+    },
+    "bus_hour_summary.csv": {
+      "rows": 3,
+      "sha256": "318b3b2558cfeaf346e71db5cd4b882c6bfb26658e86eecc5540f5aa4f46662e"
+    },
+    "bus_route_concentration.csv": {
+      "rows": 2046,
+      "sha256": "19a737b5802ebd4784bd12bc679eaa40aa9b0e0a16e186d2204516bbd139e39a"
+    },
+    "bus_stop_concentration.csv": {
+      "rows": 300,
+      "sha256": "dc762c198c1c77db27cc76dad309b7e95a8e96352f04b610e36a77d2e68cbaaf"
+    },
+    "bus_stop_map.csv": {
+      "rows": 12532,
+      "sha256": "ffef51bbdf7bd4b81048f1c6bdcc15c42631530329ed60a5b76b85db9a0eca8f"
+    },
+    "bus_transport_type_hour.csv": {
+      "rows": 21,
+      "sha256": "1e62d8f5d4ac7894b714be4e8c6b955b914fbc4cfc08f1f15134130ccae0516c"
+    },
+    "demand_candidates.csv": {
+      "rows": 100,
+      "sha256": "b120397dc2c66d64af0c1a0dce0610e6745c45254de698d6162a81ecbd101c19"
+    },
+    "destination_concentration.csv": {
+      "rows": 1281,
+      "sha256": "32ede0ea925132a085e897f94634dc2270e02e68d6858d13a3fff4169ac88591"
+    },
+    "destination_purpose.csv": {
+      "rows": 5249,
+      "sha256": "cec2aacb711b52b47d2e756ec2e4ae78a52385d631f0d29ea15c6cc27d2ba9ff"
+    },
+    "hour_summary.csv": {
+      "rows": 6,
+      "sha256": "9843a65edd3aa24c0ce27e47ddf3528b439502084c8612d277ce1b8e2db26a0e"
+    },
+    "intrazonal_summary.csv": {
+      "rows": 6,
+      "sha256": "36bdb1f0987442e58719c33129a1300aa88e0e9b62680731fb3d8f8c2f25bd4b"
+    },
+    "map_dong_demand.csv": {
+      "rows": 427,
+      "sha256": "3f80b95a1f0348650b2057541c20aa6133190e5e5ce04245a68e92552448572b"
+    },
+    "mode_composition.csv": {
+      "rows": 26,
+      "sha256": "a79ded6e6f8c709fe17157341a104b5be5c788a349bb31d6edd5136cf36748cf"
+    },
+    "od_hourly.csv": {
+      "rows": 442046,
+      "sha256": "9cb6e7988cf356835b102a512932dabb6eab2f34d30cff48dbd3a830bc920e92"
+    },
+    "origin_concentration.csv": {
+      "rows": 1281,
+      "sha256": "e63bbae385e3fee4824f26746e41bf0b504e737c27de1951b3997d473ce6db1e"
+    },
+    "purpose_composition.csv": {
+      "rows": 21,
+      "sha256": "81958b14345cc3f6db6e29277a0209847b84aac495115c69f0ac457a44b1690c"
+    }
+  },
+  "unsupported": [
+    "bus weekday/weekend comparison",
+    "service gap",
+    "unmet demand",
+    "unique persons"
+  ]
+}

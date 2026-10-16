@@ -47,6 +47,7 @@ outputs/intermediate/data_audit/files/
 outputs/intermediate/data_audit/duckdb_temp/
 outputs/intermediate/data_audit/key_temp/
 outputs/intermediate/data_audit/test_tmp/
+outputs/intermediate/demand/.scratch.duckdb*
 reports/qa-local/
 *.tmp
 *.bak
