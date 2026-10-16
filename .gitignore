@@ -30,9 +30,12 @@ venv/
 Thumbs.db
 Desktop.ini
 
-# Local-only data and source context must not be tracked by Git
+# Local-only data, source context, and agent configuration
 /data/
 /docs/context/
+/AGENTS.md
+/.agents/
+/prompts/
 
 # Temporary analysis artifacts and local QA logs
 tmp/
@@ -55,13 +58,6 @@ reports/qa-local/
 *.tar
 *.tar.gz
 
-# Core instructions must stay trackable.
 # Do not add global ignore rules for *.md, *.txt, or *.docx.
-!AGENTS.md
 !README.md
-!.agents/
-!.agents/roles/
-!.agents/roles/*.md
-!prompts/
-!prompts/*.md
 !docs/
