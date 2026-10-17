@@ -47,15 +47,63 @@
 
 ## 분석보고서 작성자가 먼저 볼 자료
 
-보고서 작성 전 아래 순서로 자료를 확인하면 수치의 의미와 사용 가능 범위를 함께 파악할 수 있다.
+### 시간이 없으면 이 세 파일부터 보기
 
-1. [분석 인계 문서](reports/analysis_handoff.md): 핵심 수치, 관찰 결과, 해석 시 주의사항을 확인한다.
-2. [분석 범위표](reports/analysis_coverage.md): 만들 수 있는 결과와 현재 자료로 만들 수 없는 결과를 구분한다.
-3. [가정과 한계](reports/assumptions_and_limits.md): 기간, 단위, 표본성, 자료 시점 차이를 보고서 각주와 한계 절에 반영한다.
-4. [수요 후보 표](outputs/final/tables/demand_candidates.csv)와 [버스 이용 후보 표](outputs/final/tables/bus_demand_candidates.csv): 본문 순위와 사례의 정확한 값을 인용한다.
-5. [시간·요일유형 표](outputs/final/tables/hour_day_type.csv), [이동목적 구성표](outputs/final/tables/purpose_composition.csv), [이동수단 구성표](outputs/final/tables/mode_composition.csv): 시간대별 패턴을 설명한다.
-6. [수요 지도](outputs/final/maps/dong_demand.geojson)와 [버스 이용 후보 지도](outputs/final/maps/bus_demand_candidates.geojson): 공간 분포를 지도화할 때 사용한다.
-7. [QA 검토 결과](reports/qa_review.md), [산출물 목록과 해시](outputs/final/artifact_manifest.json), [요약 데이터](outputs/final/summary.json): 제출 전 재현성과 수치 출처를 확인한다.
+1. [analysis_handoff.md](reports/analysis_handoff.md): 분석 결과를 문장으로 설명한 **가장 중요한 인계 문서**다. 보고서 초안을 쓸 때 이 파일을 먼저 읽는다.
+2. [analysis_coverage.md](reports/analysis_coverage.md): 어떤 결론까지 말할 수 있는지를 정리한 **사용 가능 범위표**다. `produced`는 사용 가능한 결과, `unsupported`는 현재 자료로 계산하지 못한 결과다.
+3. [outputs/final/figures/](outputs/final/figures/): 보고서에서 바로 참고할 수 있는 **최종 그래프와 지도 8개**가 들어 있다. 그림을 사용하기 전 인계 문서의 해석과 한계를 함께 확인한다.
+
+핵심 수치만 빠르게 확인하려면 [summary.json](outputs/final/summary.json)을 보면 된다. 다만 JSON은 기계 판독용 요약이므로, 숫자의 뜻을 이해하거나 보고서 문장으로 옮길 때는 `analysis_handoff.md`를 기준으로 한다.
+
+### 파일별 해설
+
+#### 1. 결과를 이해하는 문서
+
+| 파일 | 무엇이 들어 있나 | 어떻게 보면 되나 | 보고서에서 쓸 부분 |
+|---|---|---|---|
+| [analysis_handoff.md](reports/analysis_handoff.md) | 핵심 결과, 주요 수치, 공급자료 확보 상태, 해석 한계 | 위에서 아래로 한 번 읽으면 전체 분석 흐름을 이해할 수 있다. 수요와 공급을 결합하지 않았다는 점을 먼저 확인한다. | 분석 결과 본문과 결과 요약의 기준 문서 |
+| [analysis_coverage.md](reports/analysis_coverage.md) | 요청한 분석 항목별 `produced`·`unsupported` 판정 | 쓰려는 결론을 첫 번째 열에서 찾고, 판정과 누락 의존성을 확인한다. | 보고서에 넣을 수 있는 주장과 추가 데이터 과제 구분 |
+| [assumptions_and_limits.md](reports/assumptions_and_limits.md) | 시간 범위, 이동량 단위, 평일·주말 정의, 공간 연결과 표본 한계 | 보고서의 데이터 설명과 한계 절을 작성할 때 본다. | 방법론, 각주, 한계, 후속 검증 항목 |
+| [qa_review.md](reports/qa_review.md) | 테스트, 원자료 해시, 행 수, 결측·중복, 그림 검수 결과 | 최종 제출 직전에 결과가 검증되었는지 확인한다. | 재현성·품질검증 설명의 근거 |
+
+`analysis_coverage.md`를 읽는 예시는 다음과 같다. `03:00~06:00 시간대별 OD 이동량`은 `produced`이므로 사용할 수 있다. `첫차 조정 대상 노선 순위`는 `unsupported`이므로 현재 결과를 노선 우선순위처럼 쓰면 안 된다.
+
+#### 2. 보고서에 숫자를 옮길 때 보는 표
+
+| 파일 | 핵심 열 | 쉬운 해석 | 사용 예시 |
+|---|---|---|---|
+| [demand_candidates.csv](outputs/final/tables/demand_candidates.csv) | `origin_name`, `destination_name`, `time_bin_start`, `demand_value`, `demand_rank` | 서로 다른 행정동 사이의 새벽 추정 이동량 상위 100개다. `demand_value`는 월간 추정 이동량이며 사람 수가 아니다. | “05시대 등촌3동→공항동 추정 이동량이 수요 후보 중 가장 컸다.” |
+| [hour_day_type.csv](outputs/final/tables/hour_day_type.csv) | `hour`, `day_type`, `daily_average` | 시간대별 월~금과 토~일의 하루 평균을 비교한다. 총합 대신 `daily_average`를 봐야 일수 차이를 제거할 수 있다. | “05시대 월~금 일평균은 토~일보다 44.90% 많았다.” |
+| [purpose_composition.csv](outputs/final/tables/purpose_composition.csv) | `hour`, `purpose_label`, `hour_share` | 각 시간대 이동목적의 구성비다. `hour_share`에 100을 곱하면 백분율이다. | “03시대 귀가 목적은 44.93%였다.” |
+| [mode_composition.csv](outputs/final/tables/mode_composition.csv) | `hour`, `mode_label`, `hour_share` | 각 시간대 이동수단의 구성비다. 목적 자료와 별도 분류이므로 두 표의 이동량을 합치지 않는다. | “03~05시 모두 도보가 가장 큰 비중을 차지했다.” |
+| [bus_demand_candidates.csv](outputs/final/tables/bus_demand_candidates.csv) | `stop_name`, `boardings`, `alightings`, `activity_rank` | 03~05시 승하차 활동 합계가 큰 정류소 상위 100개다. 이용이 많은 곳이며 서비스가 부족한 곳이라는 뜻은 아니다. | “구로디지털단지역은 새벽 버스 이용 활동 상위 후보였다.” |
+| [transit_coverage_audit.csv](outputs/final/tables/transit_coverage_audit.csv) | `route_id`, `planned_first_time`, `access_gap_status` | 확보된 일부 정류소–노선의 예정 첫차 사례다. 모든 행의 공백 판정은 `unknown`이다. | 전체 현황이나 순위에 쓰지 않고, 제한된 확보 사례를 설명할 때만 사용 |
+
+CSV를 열었을 때 가장 먼저 볼 열은 순위(`demand_rank` 또는 `activity_rank`), 장소 이름, 시간, 값이다. `uncertainty_flag`와 `selection_rule`에는 각 행의 선정 기준과 주의사항이 적혀 있으므로 인용 전에 함께 확인한다.
+
+#### 3. 그림을 고를 때 보는 파일
+
+| 그림 | 보여 주는 내용 | 해석할 때 주의할 점 |
+|---|---|---|
+| [hour_day_type.png](outputs/final/figures/hour_day_type.png) | 시간대별 월~금·토~일 일평균 이동량 | 공휴일을 별도로 구분한 업무일 비교가 아니다. |
+| [top_od_candidates.png](outputs/final/figures/top_od_candidates.png) | 행정동 간 추정 이동량 상위 OD | 수요가 큰 후보이며 대중교통 공백 순위가 아니다. |
+| [purpose_composition.png](outputs/final/figures/purpose_composition.png) | 시간대별 이동목적 구성 | 목적은 통신 기반 추정 분류이며 직업을 뜻하지 않는다. |
+| [mode_composition.png](outputs/final/figures/mode_composition.png) | 시간대별 이동수단 구성 | 목적축과 수단축의 총량은 서로 더하거나 빼지 않는다. |
+| [top_bus_stops.png](outputs/final/figures/top_bus_stops.png) | 새벽 승하차 활동 상위 정류소 | 월간 이용량이며 평일·주말을 나눌 수 없다. |
+| [origin_demand_map.png](outputs/final/figures/origin_demand_map.png) | 행정동별 출발 수요 분포 | 경계 시점 차이가 있는 참고도다. |
+| [destination_demand_map.png](outputs/final/figures/destination_demand_map.png) | 행정동별 도착 수요 분포 | 진한 지역은 이동 집중 지역이며 공급 부족을 뜻하지 않는다. |
+| [acquired_first_bus_distribution.png](outputs/final/figures/acquired_first_bus_distribution.png) | 확보된 첫차 예정시각 사례의 분포 | 전체의 4.47%인 비확률 확보분이므로 서울 전체 분포로 일반화하지 않는다. |
+
+지도 편집이나 추가 시각화가 필요하면 [dong_demand.geojson](outputs/final/maps/dong_demand.geojson)과 [bus_demand_candidates.geojson](outputs/final/maps/bus_demand_candidates.geojson)을 사용한다. 앞의 파일은 행정동 수요, 뒤의 파일은 버스 정류소 이용 후보를 담는다.
+
+#### 4. 검증과 재현에만 주로 쓰는 파일
+
+- [summary.json](outputs/final/summary.json): 상태, 핵심 합계, 행 수를 한곳에 모은 기계 판독용 요약이다.
+- [artifact_manifest.json](outputs/final/artifact_manifest.json): 최종 산출물 목록과 SHA256 해시다. 파일 누락이나 변경 여부를 확인할 때 쓴다.
+- [transit_supply_inventory.csv](outputs/final/tables/transit_supply_inventory.csv): 버스 공급 원자료별 행 수와 품질 점검 결과다.
+- [subway_timetable_inventory.csv](outputs/final/tables/subway_timetable_inventory.csv): 지하철 시간표의 노선·요일 구분별 보유 현황이다.
+
+이 네 파일은 일반적인 결과 서술보다 수치 확인, 데이터 관리, 재현성 검증에 적합하다.
 
 보고서 본문은 `분석 범위와 데이터 → 시간대별 수요 → 주요 출발·도착지와 OD 후보 → 버스 이용 현황 → 공급자료 확인 결과 → 한계와 추가 검증 과제` 순서로 구성하면 된다. 표나 그림을 사용할 때는 원자료 코드, 분석 기간, 단위, 집계 기준을 함께 적는다.
 
