@@ -1,0 +1,87 @@
+{
+  "dataset_id": "OA-21220",
+  "source_url": "https://data.seoul.go.kr/dataList/OA-21220/F/1/datasetView.do",
+  "download_endpoint": "https://datafile.seoul.go.kr/bigfile/iot/inf/nio_download.do?&useCache=false",
+  "method": "POST",
+  "form": {
+    "infId": "OA-21220",
+    "infSeq": "3",
+    "seqNo": ""
+  },
+  "retrieved_at": "2026-10-17T10:46:28.286591+00:00",
+  "license": "공공누리 1유형: 출처표시 (상업적 이용 및 변경 가능)",
+  "expected_total_download_mb": 67.0,
+  "records": [
+    {
+      "filename": "tpss_sta_route_hturn_2026.08.31-09.06.zip",
+      "path": "data/raw/bus/OA-21220/tpss_sta_route_hturn_2026.08.31-09.06.zip",
+      "seq": "260914",
+      "bytes": 13993070,
+      "sha256": "73dd0a7f34a1510b8650565fcc39ecc8814a2f9745ee680f0ab0c2a5e972c195",
+      "members": [
+        {
+          "path": "data/raw/bus/OA-21220/extracted/tpss_sta_route_hturn_2026.08.31-09.06.csv",
+          "bytes": 82101601,
+          "sha256": "7e25518eaae03770345b762db792987bd2457cd476b52277aa983987a1ece7dd"
+        }
+      ]
+    },
+    {
+      "filename": "tpss_sta_route_hturn_2026.09.07-09.13.zip",
+      "path": "data/raw/bus/OA-21220/tpss_sta_route_hturn_2026.09.07-09.13.zip",
+      "seq": "260921",
+      "bytes": 13902499,
+      "sha256": "395a9864778587f55f5ed36ba7622aae03378a76c1cc5936924ba9b168d5f3d8",
+      "members": [
+        {
+          "path": "data/raw/bus/OA-21220/extracted/tpss_sta_route_hturn_2026.09.07-09.13.csv",
+          "bytes": 82078751,
+          "sha256": "88115077b2133daa78d56b2889fb2e7243ccbb7fea7cff5b63447811511ca919"
+        }
+      ]
+    },
+    {
+      "filename": "tpss_sta_route_hturn_2026.09.14-09.20.zip",
+      "path": "data/raw/bus/OA-21220/tpss_sta_route_hturn_2026.09.14-09.20.zip",
+      "seq": "260928",
+      "bytes": 13969675,
+      "sha256": "f0b3f7c4802d085377f66e26510f5695a0756072a6fba11bbe888f18c1797a30",
+      "members": [
+        {
+          "path": "data/raw/bus/OA-21220/extracted/tpss_sta_route_hturn_2026.09.14-09.20.csv",
+          "bytes": 82049671,
+          "sha256": "5c31bcc4917888a69f10375b9cff4bb1af52e7ef08bd54af7a0feb647e2c88e3"
+        }
+      ]
+    },
+    {
+      "filename": "tpss_sta_route_hturn_2026.09.21-09.27.zip",
+      "path": "data/raw/bus/OA-21220/tpss_sta_route_hturn_2026.09.21-09.27.zip",
+      "seq": "261005",
+      "bytes": 13212050,
+      "sha256": "ef7775a0d29b4648341d63e82c89a6f8e6f7b64d21093675c57b6c87c17cdffd",
+      "members": [
+        {
+          "path": "data/raw/bus/OA-21220/extracted/tpss_sta_route_hturn_2026.09.21-09.27.csv",
+          "bytes": 79930585,
+          "sha256": "ceab83a51421cd2149fc2b7031faa1367003fdc62c6ab31cbdbcf5b6607abedc"
+        }
+      ]
+    },
+    {
+      "filename": "tpss_sta_route_hturn_2026.09.28-10.04.zip",
+      "path": "data/raw/bus/OA-21220/tpss_sta_route_hturn_2026.09.28-10.04.zip",
+      "seq": "261012",
+      "bytes": 13721835,
+      "sha256": "5959858143f4c44506f66740be0c0e469a1c16e0c0517e6b508b145f680cba36",
+      "members": [
+        {
+          "path": "data/raw/bus/OA-21220/extracted/tpss_sta_route_hturn_2026.09.28-10.04.csv",
+          "bytes": 81167823,
+          "sha256": "7c8584e5c78bfe327d84f6c3db91cb71e916ab28e2f551e4461fd69aada4d6ca"
+        }
+      ]
+    }
+  ],
+  "immutable_raw_policy": "exclusive create; existing files never overwritten"
+}

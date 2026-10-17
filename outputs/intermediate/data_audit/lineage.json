@@ -3020,6 +3020,56 @@
       "path": "data/reference/mobility_codebooks/전국_행정동_코드정보/SEOUL_ADMI/ADMI_202608.csv",
       "sha256": "bfe27cdb75fbb9f9944ddc6a1dd073e71cd649dbd2fb6f26ca8efc098b6b3d52",
       "bytes": 331174
+    },
+    {
+      "path": "data/raw/bus/OA-21220/tpss_sta_route_hturn_2026.08.31-09.06.zip",
+      "sha256": "73dd0a7f34a1510b8650565fcc39ecc8814a2f9745ee680f0ab0c2a5e972c195",
+      "bytes": 13993070
+    },
+    {
+      "path": "data/raw/bus/OA-21220/tpss_sta_route_hturn_2026.09.07-09.13.zip",
+      "sha256": "395a9864778587f55f5ed36ba7622aae03378a76c1cc5936924ba9b168d5f3d8",
+      "bytes": 13902499
+    },
+    {
+      "path": "data/raw/bus/OA-21220/tpss_sta_route_hturn_2026.09.14-09.20.zip",
+      "sha256": "f0b3f7c4802d085377f66e26510f5695a0756072a6fba11bbe888f18c1797a30",
+      "bytes": 13969675
+    },
+    {
+      "path": "data/raw/bus/OA-21220/tpss_sta_route_hturn_2026.09.21-09.27.zip",
+      "sha256": "ef7775a0d29b4648341d63e82c89a6f8e6f7b64d21093675c57b6c87c17cdffd",
+      "bytes": 13212050
+    },
+    {
+      "path": "data/raw/bus/OA-21220/tpss_sta_route_hturn_2026.09.28-10.04.zip",
+      "sha256": "5959858143f4c44506f66740be0c0e469a1c16e0c0517e6b508b145f680cba36",
+      "bytes": 13721835
+    },
+    {
+      "path": "data/raw/bus/OA-21220/extracted/tpss_sta_route_hturn_2026.08.31-09.06.csv",
+      "sha256": "7e25518eaae03770345b762db792987bd2457cd476b52277aa983987a1ece7dd",
+      "bytes": 82101601
+    },
+    {
+      "path": "data/raw/bus/OA-21220/extracted/tpss_sta_route_hturn_2026.09.07-09.13.csv",
+      "sha256": "88115077b2133daa78d56b2889fb2e7243ccbb7fea7cff5b63447811511ca919",
+      "bytes": 82078751
+    },
+    {
+      "path": "data/raw/bus/OA-21220/extracted/tpss_sta_route_hturn_2026.09.14-09.20.csv",
+      "sha256": "5c31bcc4917888a69f10375b9cff4bb1af52e7ef08bd54af7a0feb647e2c88e3",
+      "bytes": 82049671
+    },
+    {
+      "path": "data/raw/bus/OA-21220/extracted/tpss_sta_route_hturn_2026.09.21-09.27.csv",
+      "sha256": "ceab83a51421cd2149fc2b7031faa1367003fdc62c6ab31cbdbcf5b6607abedc",
+      "bytes": 79930585
+    },
+    {
+      "path": "data/raw/bus/OA-21220/extracted/tpss_sta_route_hturn_2026.09.28-10.04.csv",
+      "sha256": "7c8584e5c78bfe327d84f6c3db91cb71e916ab28e2f551e4461fd69aada4d6ca",
+      "bytes": 81167823
     }
   ],
   "outputs": [
@@ -3028,6 +3078,9 @@
     "readiness.json",
     "data_dictionary.json"
   ],
-  "network_used": false,
-  "raw_mutated": false
+  "network_used": true,
+  "raw_mutated": false,
+  "supplementary_command": "python scripts/audit_oa21220.py",
+  "supplementary_acquisition_manifest": "outputs/intermediate/data_audit/OA-21220_download_manifest.json",
+  "network_scope": "Only expressly authorized OA-21220 public unauthenticated acquisition; prior inputs unchanged"
 }
