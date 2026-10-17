@@ -27,3 +27,16 @@ def test_maps_and_figures_are_complete():
         'outputs/final/figures/top_od_candidates.png',
         'outputs/final/figures/origin_demand_map.png',
         'outputs/final/figures/destination_demand_map.png'])
+    direct = json.loads(Path('outputs/final/maps/direct_service_screening.geojson').read_text(encoding='utf-8'))
+    assert len(direct['features']) == 100
+    assert all(f['properties']['geometry_note'].endswith('not a bus path') for f in direct['features'])
+    assert Path('outputs/final/figures/direct_service_screening.png').stat().st_size > 10_000
+
+
+def test_limited_direct_service_screen_is_published_without_gap_claim():
+    summary = build()
+    direct = pd.read_csv('outputs/final/tables/direct_service_screening.csv')
+    assert len(direct) == 100
+    assert summary['direct_service_screening']['inside_confirmed_candidates'] == 94
+    assert summary['direct_service_screening']['buffer_500m_confirmed_candidates'] == 100
+    assert 'full accessibility and service-gap inference remain unsupported' in summary['integration_rule']

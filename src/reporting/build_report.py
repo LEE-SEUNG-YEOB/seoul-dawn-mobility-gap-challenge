@@ -4,8 +4,10 @@ import json
 import shutil
 
 import matplotlib.pyplot as plt
+from matplotlib.patches import Patch
 import numpy as np
 import pandas as pd
+from shapely.geometry import shape
 
 from src.reporting.geography import load_seoul_geography, write_geojson
 from src.reporting.plots import bars, choropleth, save
@@ -14,6 +16,7 @@ from src.reporting.plots import bars, choropleth, save
 ROOT = Path('.')
 DEMAND = ROOT / 'outputs/intermediate/demand'
 ACCESS = ROOT / 'outputs/intermediate/access'
+INTEGRATION = ROOT / 'outputs/intermediate/integration'
 FINAL = ROOT / 'outputs/final'
 
 
@@ -72,6 +75,8 @@ def build():
         'first_bus_time_distribution.csv': ACCESS/'first_bus_time_distribution.csv',
         'transit_supply_inventory.csv': ACCESS/'transit_supply_inventory.csv',
         'subway_timetable_inventory.csv': ACCESS/'subway_timetable_inventory.csv',
+        'direct_service_screening.csv': INTEGRATION/'direct_service_screening.csv',
+        'direct_service_route_evidence.csv': INTEGRATION/'direct_service_route_evidence.csv',
     }
     for name, source in key_tables.items():
         copy_table(source, name)
@@ -128,12 +133,63 @@ def build():
     choropleth(features, 'origin_estimated_movements', '새벽 출발 이동량', note, FINAL/'figures/origin_demand_map.png')
     choropleth(features, 'destination_estimated_movements', '새벽 도착 이동량', note, FINAL/'figures/destination_demand_map.png')
 
+    direct = pd.read_csv(INTEGRATION/'direct_service_screening.csv', dtype={'origin_id':str, 'destination_id':str})
+    status_color = {
+        'inside_service_confirmed': '#216a81',
+        'buffer_only_service_confirmed': '#db8a41',
+        'service_unconfirmed_within_500m': '#9a9a9a',
+    }
+    top = direct.head(20).copy().iloc[::-1]
+    top_labels = (top.origin_district_name + ' ' + top.origin_name.str.split().str[-1] + ' → ' +
+                  top.destination_district_name + ' ' + top.destination_name.str.split().str[-1] +
+                  ' ' + top.time_bin_start.str[:2] + '시')
+    fig, ax = plt.subplots(figsize=(10, 8))
+    ax.barh(top_labels, top.demand_value, color=top.screening_status.map(status_color))
+    ax.set_xlabel('9월 추정 이동량 합계 (통행)')
+    ax.grid(axis='x', alpha=.18); ax.set_axisbelow(True)
+    ax.legend(handles=[
+        Patch(color=status_color['inside_service_confirmed'], label='행정동 내부에서 양수 운행 확인'),
+        Patch(color=status_color['buffer_only_service_confirmed'], label='500m 완충 적용 후 양수 운행 확인'),
+    ], frameon=False, loc='lower right')
+    fig.suptitle('상위 OD의 직결 버스 서비스 존재 증거', x=.08, ha='left', fontsize=16, fontweight='bold')
+    fig.text(.08, .015, 'OA-21220 출발시간대 양수 운행 + 동일 노선 후속 정류소 순서. 정확한 도착 가능성·서비스 공백 판정이 아님.', fontsize=9)
+    fig.subplots_adjust(left=.32, right=.96, bottom=.10, top=.91)
+    save(fig, FINAL/'figures/direct_service_screening.png')
+
+    representative = {
+        feature['properties']['mobility_id']: shape(feature['geometry']).representative_point()
+        for feature in features if feature['properties']['mobility_id']
+    }
+    direct_features = []
+    for row in direct.itertuples():
+        origin, destination = representative.get(row.origin_id), representative.get(row.destination_id)
+        if origin is None or destination is None:
+            continue
+        direct_features.append({
+            'type': 'Feature',
+            'geometry': {'type': 'LineString', 'coordinates': [[origin.x, origin.y], [destination.x, destination.y]]},
+            'properties': {
+                'candidate_id': row.candidate_id,
+                'demand_rank': int(row.demand_rank),
+                'time_bin_start': row.time_bin_start,
+                'origin_name': row.origin_name,
+                'destination_name': row.destination_name,
+                'demand_value': float(row.demand_value),
+                'screening_status': row.screening_status,
+                'inside_confirmed_route_count': int(row.inside_confirmed_route_count),
+                'buffer_500m_confirmed_route_count': int(row.buffer_500m_confirmed_route_count),
+                'geometry_note': 'straight representative-point connector; not a bus path',
+            },
+        })
+    write_geojson(FINAL/'maps/direct_service_screening.geojson', direct_features)
+
     demand_summary = json.loads((DEMAND/'summary.json').read_text(encoding='utf-8'))
     access_summary = json.loads((ACCESS/'access_summary.json').read_text(encoding='utf-8'))
+    direct_summary = json.loads((INTEGRATION/'direct_service_screening_summary.json').read_text(encoding='utf-8'))
     summary = {
         'status':'COMPLETE_LIMITED','readiness_mode':'separate_only','join_ready':False,
-        'demand':demand_summary,'access':access_summary,
-        'integration_rule':'Demand and supply artifacts are published side by side and are not joined.',
+        'demand':demand_summary,'access':access_summary,'direct_service_screening':direct_summary,
+        'integration_rule':'A limited direct-service presence screen joins demand candidates to positive run evidence; full accessibility and service-gap inference remain unsupported.',
         'unknown_rule':'Unacquired OA-15334 pairs and unresolved geography remain unknown.',
         'unsupported':access_summary['unsupported'] + ['bus weekday/weekend comparison','citywide service gap ranking']
     }

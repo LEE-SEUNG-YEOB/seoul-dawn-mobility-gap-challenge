@@ -2,7 +2,7 @@
 
 ## 범위와 상태
 
-2026년 9월 서울 내부 출발 시각 03:00 이상 06:00 미만 이동을 분석했다. 준비 상태는 `separate_only`이며 최종 상태는 `COMPLETE_LIMITED`다. 수요와 공급 자료는 별도로 기술했고, 서울 전체 서비스 공백·노선 조정 우선순위·수혜 인원은 계산하지 않았다.
+2026년 9월 서울 내부 출발 시각 03:00 이상 06:00 미만 이동을 분석했다. 준비 상태는 `separate_only`이며 최종 상태는 `COMPLETE_LIMITED`다. 수요와 공급 자료를 각각 분석하고, 상위 수요 OD에 대해 제한된 직결 버스 서비스 존재 증거를 스크리닝했다. 서울 전체 서비스 공백·노선 조정 우선순위·수혜 인원은 계산하지 않았다.
 
 ## 수요 관찰 결과
 
@@ -30,9 +30,24 @@ OA-15334 요청완료는 44,735 정류소–노선 쌍 중 1,999쌍(4.4685%)이�
 
 공급 목록은 OA-1095 41,688개 노선–정류소 행, OA-21231 11,497개 정류소 행, OA-21233 88,729개 노선–노드 행, 지하철 시간표 296,720행이다. OA-1095는 9월 2일, 다른 마스터와 시간표는 10월 16일 스냅샷이어서 9월 전체의 동일한 운행 상태를 입증하지 않는다. 시간표는 계획 정보이며 실제 운행 실적이 아니다.
 
+OA-21220에서 2026년 9월 30일의 노선–정류소–시간별 실제 운행횟수 2,638,894행을 확보했다. 업무키 중복은 없었다. 03~05시 가운데 양수 운행이 한 번 이상 확인된 `route_id × stop_id × stop_sequence × hour` 조합은 72,024개다. 원자료 시간 셀의 빈 값은 03시 2,552,937개, 04시 2,163,808개, 05시 1,349,252개이며, 전체 운행횟수와 시간별 합이 불일치하는 행도 19,161개여서 빈 값을 0이나 무운행으로 해석하지 않았다.
+
+## 상위 수요 OD 직결 서비스 스크리닝
+
+상위 100개 행정동 간 OD-hour 수요 후보를 대상으로 같은 노선이 출발지 쪽 정류소를 먼저 지나고 목적지 쪽 정류소를 나중에 지나는지 확인했다. 출발 시간대의 출발지 정류소에서 OA-21220 양수 운행횟수가 한 번 이상 관측된 경우만 직결 서비스 존재 증거로 분류했다.
+
+- 행정동 경계 내부 정류소만 사용: 100개 중 **94개**에서 직결 서비스 존재 증거 확인
+- 행정동 경계를 500m 확장한 민감도 기준: 100개 중 **100개**에서 확인
+- 경계 내부에서는 확인되지 않았지만 500m 완충 적용 후 확인된 후보: **6개**
+- 500m 기준에서도 양수 운행을 확인하지 못한 후보: **0개**
+
+500m 완충 적용 후 확인된 6개는 서교동→서강동 03시, 이화동→신당동 03시·04시, 서강동→서교동 03시, 서교동→합정동 03시, 장안1동→장안2동 03시다.
+
+이 결과는 상위 수요 구간에서 직결 노선의 **존재 증거**가 대체로 확인된다는 뜻이다. 특정 차량이 목적지까지 실제 운행했는지, 도착시각이 출근 요구에 맞는지, 배차간격·혼잡·환승·보행이 적절한지는 확인하지 못한다. 따라서 상위 100개에서 새로운 무서비스 공백이 발견됐다고 해석하지 않는다. 오히려 후속 검증은 노선 존재 여부보다 첫 도착시각, 배차, 좌석·혼잡과 목적지 도착 마감에 초점을 둘 필요가 있다.
+
 ## 해석과 미지원 결과
 
-수요 후보와 공급 사례는 결합하지 않았다. 미확보 OA-15334 쌍은 `unknown`으로 유지했다. 따라서 다음은 `unsupported`다.
+수요 후보와 OA-21220 양수 운행증거를 제한적으로 결합했지만, 완전한 접근성은 계산하지 않았다. 미확보 OA-15334 쌍과 OA-21220 빈 셀은 `unknown`으로 유지했다. 따라서 다음은 `unsupported`다.
 
 - 서울 전체 자치구·행정동별 공급 공백 순위
 - 첫차 조정 대상 노선의 서울 전체 순위
@@ -49,9 +64,12 @@ OA-15334 요청완료는 44,735 정류소–노선 쌍 중 1,999쌍(4.4685%)이�
 - `outputs/final/tables/demand_candidates.csv`: 행정동 간 수요 후보 100건
 - `outputs/final/tables/bus_demand_candidates.csv`: 버스 활동 후보 정류소 100건
 - `outputs/final/tables/transit_coverage_audit.csv`: 확보된 첫차 예정시각 1,947쌍
+- `outputs/final/tables/direct_service_screening.csv`: 상위 수요 OD 100개의 행정동 내부·500m 민감도 판정
+- `outputs/final/tables/direct_service_route_evidence.csv`: 후보별 동일노선·정류소순서·양수 운행 근거
 - `outputs/final/maps/dong_demand.geojson`: 행정동 수요 지도 데이터
 - `outputs/final/maps/bus_demand_candidates.geojson`: 버스 후보 점 데이터
-- `outputs/final/figures/`: 검증용 표준 그림 8개
+- `outputs/final/maps/direct_service_screening.geojson`: 후보 OD 직선 연결 참고 데이터. 실제 버스 경로가 아님
+- `outputs/final/figures/`: 검증용 표준 그림 9개
 - `outputs/final/summary.json`: 기계 판독 요약과 제한
 - `reports/analysis_coverage.md`: 요청 결과별 지원 여부
 - `reports/assumptions_and_limits.md`: 가정과 한계
@@ -62,8 +80,12 @@ OA-15334 요청완료는 44,735 정류소–노선 쌍 중 1,999쌍(4.4685%)이�
 
 ```powershell
 .\.venv\Scripts\python.exe -m src.data.validate_contract --contract data/metadata/analysis_contract.json --verify-hashes
+.\.venv\Scripts\python.exe scripts/audit_oa21220.py
 .\.venv\Scripts\python.exe -m src.demand.run
+.\.venv\Scripts\python.exe -m src.demand.direct_service_inputs
 .\.venv\Scripts\python.exe -m src.access.build_supply_audit
+.\.venv\Scripts\python.exe -m src.access.build_observed_bus_service
+.\.venv\Scripts\python.exe -m src.integration.build_direct_service_screen
 .\.venv\Scripts\python.exe -m src.reporting.build_report
 .\.venv\Scripts\python.exe -m pytest -q
 .\.venv\Scripts\python.exe -m src.reporting.provenance --write

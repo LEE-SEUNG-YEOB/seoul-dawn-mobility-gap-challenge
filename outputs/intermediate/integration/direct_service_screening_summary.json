@@ -1,0 +1,20 @@
+{
+  "status": "COMPLETE_LIMITED_DIRECT_SERVICE_SCREEN",
+  "candidate_count": 100,
+  "route_evidence_rows": 4698,
+  "status_counts": {
+    "buffer_only_service_confirmed": 6,
+    "inside_service_confirmed": 94
+  },
+  "inside_confirmed_candidates": 94,
+  "buffer_500m_confirmed_candidates": 100,
+  "unconfirmed_within_500m_candidates": 0,
+  "method": "positive origin-stop hourly run evidence plus downstream stop order on the same route",
+  "access_scopes": [
+    "administrative-dong interior",
+    "administrative-dong polygon buffered 500 m"
+  ],
+  "blank_hour_semantics": "unknown; never zero or no-service",
+  "interpretation": "direct-service presence screen only; not exact accessibility, service gap, unmet demand, or policy priority",
+  "source_dataset_ids": "OA-22300|OA-1095|OA-21220|data-go-15129688"
+}
