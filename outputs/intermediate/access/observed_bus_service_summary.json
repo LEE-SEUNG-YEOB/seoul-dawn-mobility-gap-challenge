@@ -1,0 +1,88 @@
+{
+  "dataset_id": "OA-21220",
+  "status": "limited_actual_run_direct_service_screening",
+  "analysis_period": {
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "observed_days": 30
+  },
+  "hours": [
+    3,
+    4,
+    5
+  ],
+  "source_file_count": 5,
+  "source_september_rows": 2638894,
+  "source_duplicate_business_key_excess": 0,
+  "source_duplicate_rows": 0,
+  "invalid_nonblank_dawn_cells": 0,
+  "all_observed_key_hour_combinations": 289575,
+  "confirmed_output_rows": 72024,
+  "all_unknown_key_hour_combinations_excluded": 217551,
+  "source_dawn_cell_totals": {
+    "03": {
+      "positive_cells": 85957,
+      "blank_cells": 2552937,
+      "observed_trip_count_sum": 171663
+    },
+    "04": {
+      "positive_cells": 475086,
+      "blank_cells": 2163808,
+      "observed_trip_count_sum": 1305555
+    },
+    "05": {
+      "positive_cells": 1289642,
+      "blank_cells": 1349252,
+      "observed_trip_count_sum": 4556575
+    }
+  },
+  "output_grain": "route_id x stop_id x stop_sequence x hour",
+  "service_confirmation_rule": "at least one strictly positive OA-21220 run count during September 2026",
+  "blank_cell_semantics": "unknown; never zero or no-service",
+  "missing_daily_row_semantics": "unknown; never zero or no-service",
+  "day_type_definition": "calendar Monday-Friday versus Saturday-Sunday; not holiday adjusted",
+  "stop_sequence": "OA-21220 source value preserved; no external route/stop-name join",
+  "by_hour": {
+    "03": {
+      "confirmed_route_stop_sequence_count": 3628,
+      "unique_route_count": 210,
+      "unique_stop_id_count": 2519,
+      "positive_service_day_sum": 85957,
+      "observed_trip_count_sum": 171663,
+      "blank_cell_day_sum_among_confirmed_keys": 19566,
+      "unknown_day_sum_among_confirmed_keys": 22883
+    },
+    "04": {
+      "confirmed_route_stop_sequence_count": 18886,
+      "unique_route_count": 680,
+      "unique_stop_id_count": 8536,
+      "positive_service_day_sum": 475086,
+      "observed_trip_count_sum": 1305555,
+      "blank_cell_day_sum_among_confirmed_keys": 85250,
+      "unknown_day_sum_among_confirmed_keys": 91494
+    },
+    "05": {
+      "confirmed_route_stop_sequence_count": 49510,
+      "unique_route_count": 1129,
+      "unique_stop_id_count": 16932,
+      "positive_service_day_sum": 1289642,
+      "observed_trip_count_sum": 4556575,
+      "blank_cell_day_sum_among_confirmed_keys": 178177,
+      "unknown_day_sum_among_confirmed_keys": 195658
+    }
+  },
+  "limitations": [
+    "Positive hourly counts confirm only direct service was recorded at the route-stop-sequence-hour grain.",
+    "Hourly aggregates do not establish exact first arrival, trip travel time, transfers, walking access, or deadline reachability.",
+    "Blank cells, missing daily rows, and excluded all-unknown key-hours do not prove absence of service.",
+    "The output is not a service-gap, demand, beneficiary, priority, scenario, or causal result."
+  ],
+  "source": {
+    "provider": "서울특별시",
+    "dataset_id": "OA-21220",
+    "source_url": "https://data.seoul.go.kr/dataList/OA-21220/F/1/datasetView.do",
+    "retrieved_at": "2026-10-17T10:46:28.286591+00:00",
+    "license": "공공누리 1유형: 출처표시 (상업적 이용 및 변경 가능)",
+    "audit": "outputs/intermediate/data_audit/OA-21220_audit.json"
+  }
+}
