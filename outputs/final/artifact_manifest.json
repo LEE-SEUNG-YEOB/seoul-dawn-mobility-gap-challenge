@@ -12,6 +12,11 @@
       "sha256": "003c6340d032d1b28fc625b1a046ad9ade09bfde41bf0bbe2eb0376e9bc42ccd"
     },
     {
+      "path": "outputs/final/figures/direct_service_screening.png",
+      "bytes": 149872,
+      "sha256": "935f7bcaddbd59919b3891be22d89418b79942b3ca88d23da4547e7a75fb04bc"
+    },
+    {
       "path": "outputs/final/figures/hour_day_type.png",
       "bytes": 50343,
       "sha256": "ea514288ff4885d6243b605fcfe2e339921f4aeb1650de778b71dc56828f1747"
@@ -47,14 +52,19 @@
       "sha256": "40571930236189417be960ed7b667fc5ca271c687736970c086d96934c242ade"
     },
     {
+      "path": "outputs/final/maps/direct_service_screening.geojson",
+      "bytes": 55652,
+      "sha256": "acf4def7742cf9245c01e24e57a623648076dc25ea5e7b630c48f1a2b44d49c7"
+    },
+    {
       "path": "outputs/final/maps/dong_demand.geojson",
       "bytes": 8209666,
       "sha256": "ba89fe765b0bf4d62afb928be52b3236520c154be7f31167c56b4d477a8bcb75"
     },
     {
       "path": "outputs/final/summary.json",
-      "bytes": 6793,
-      "sha256": "96c4bea60f52a9421682d60f3822f5146a96946ad8b214575dfafa975013d9d8"
+      "bytes": 7777,
+      "sha256": "c0d70eeea6b068df0613544b5168a4611a0038d366d0561926614db05c900904"
     },
     {
       "path": "outputs/final/tables/bus_demand_candidates.csv",
@@ -75,6 +85,16 @@
       "path": "outputs/final/tables/destination_concentration.csv",
       "bytes": 122609,
       "sha256": "d8d2f77489a3ece89a55f38c10e7dc68fe9df074c73c5edf235c9f5e162c4f3b"
+    },
+    {
+      "path": "outputs/final/tables/direct_service_route_evidence.csv",
+      "bytes": 1582724,
+      "sha256": "b7036bc6af03b6b46ab6d2ae1278d377fc4ad8ac827236c8dfc1daf0fc4be09e"
+    },
+    {
+      "path": "outputs/final/tables/direct_service_screening.csv",
+      "bytes": 115441,
+      "sha256": "2f2234f70e7877c9c8e44c5aeb1ec32f6451d7b711b500f13b16d72b3289c89d"
     },
     {
       "path": "outputs/final/tables/first_bus_time_distribution.csv",
@@ -133,23 +153,23 @@
     },
     {
       "path": "reports/analysis_coverage.md",
-      "bytes": 4472,
-      "sha256": "46a7cef91aa016721dc4cf0cedc12d5371a025ebfc78a261847c987c404576da"
+      "bytes": 5174,
+      "sha256": "5e0bb3a049aba66b3761a3973c7012c992758e7b8b022c93949614b28ee23935"
     },
     {
       "path": "reports/analysis_handoff.md",
-      "bytes": 5185,
-      "sha256": "84ea04c7e0c903915e05bb2ad1cb731481a7dc430dc4b08c69a933b2dc57e897"
+      "bytes": 8070,
+      "sha256": "28ace0691d1ddaafcc7dd7366846d62c3dd9fa1b198785d2910271a4e90f2b0b"
     },
     {
       "path": "reports/assumptions_and_limits.md",
-      "bytes": 3559,
-      "sha256": "ab27a19fa402a4b0dc9f4ce351dfb1f8039404ff779025265792907f3ce555d8"
+      "bytes": 4658,
+      "sha256": "5e2aa34d8f4f31b0c9e3bd295c01f72f22c092cae764add927a17b1a81e5cfe4"
     },
     {
       "path": "reports/qa_review.md",
-      "bytes": 2467,
-      "sha256": "25f97cb9bf6fb507a754f390307b45fda3dea92d2d4d538c678ef88b0efbd406"
+      "bytes": 7623,
+      "sha256": "204ad24fe21f26d73cedb99a96dc47be4e089f19e7e374e5ee42573c8e2f24d8"
     }
   ]
 }
