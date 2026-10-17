@@ -1,0 +1,23 @@
+{
+  "status": "complete_limited_spatial_screening_input",
+  "candidate_count": 100,
+  "unique_candidate_endpoint_dongs": 91,
+  "candidate_endpoint_pairs_with_stop_matches": 200,
+  "candidate_endpoint_pairs_expected": 200,
+  "output_rows": 87255,
+  "inside_rows": 28084,
+  "buffer_500m_rows": 59171,
+  "candidates_with_route_present_at_both_endpoints": 100,
+  "direction_sequence_compatible_candidate_route_pairs": 3371,
+  "oa1095_source_rows": 41688,
+  "oa1095_unique_coordinate_stop_ids": 12897,
+  "oa1095_unknown_coordinate_rows": 0,
+  "unknown_boundary_features": 1,
+  "candidate_endpoints_with_unknown_boundary": 0,
+  "buffer_m": 500.0,
+  "metric_crs": "EPSG:5179",
+  "source_dataset_ids": "OA-22300|OA-1095|data-go-15129688",
+  "output_sha256": "0224345475314ec7ce9c33f718bc188bb06c5c0cc198fe99aca73355f9aea852",
+  "unknowns_sha256": "e5833cc79e5012cb6adf1989716b0dc6cb6c06339246a4abb8d161cb8e0329e4",
+  "interpretation": "Administrative-dong spatial screening input only; not an individual walking threshold, direct service finding, or service-gap finding."
+}

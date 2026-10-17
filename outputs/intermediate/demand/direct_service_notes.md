@@ -1,0 +1,7 @@
+# Direct-service spatial screening input
+
+Each row links one top-100 demand-candidate endpoint to one OA-1095 route-stop record whose stop point lies inside the endpoint administrative-dong polygon or no more than 500 metres outside it. Polygons and points are projected from WGS84 to EPSG:5179 before distance and buffering. `inside` has distance 0; `buffer_500m` retains the measured polygon distance.
+
+The 500 m band is an administrative-dong screening buffer. It is not a claim about an individual's walking distance or network access. `route_present_at_both_endpoints` only means the same OA-1095 route ID has spatially selected stops at both endpoint polygons. `direction_sequence_compatible` only checks whether at least one selected origin stop sequence precedes one selected destination stop sequence. Neither field applies service dates, first-service times, actual walking paths, transfers, operations, or observed journeys.
+
+OA-1095 is a 2026-09-02 snapshot, while the validated SGIS boundary is 2025 Q2 and the mobility codebook is August 2026. Boundary matching relies on the audited unique district-and-dong-name crosswalk. Unknown/split boundary features and missing or ambiguous stop coordinates are retained in `direct_service_unknowns.csv`; they are never treated as absent service. This output is a limited spatial screening input under `join_ready=false`, not a service-gap ranking.

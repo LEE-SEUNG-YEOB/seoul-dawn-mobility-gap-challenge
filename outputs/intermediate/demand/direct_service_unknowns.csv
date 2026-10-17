@@ -1,0 +1,2 @@
+﻿record_type,candidate_id,endpoint_role,admi_cd,route_id,stop_id,ars_id,boundary_id,boundary_district,boundary_dong_name,reason,source_dataset_ids
+boundary_feature,,,,,,,11060810,동대문구,용신동,unknown_name_crosswalk:11060810,data-go-15129688
